@@ -1,0 +1,98 @@
+estimation of kinetic parameters
+ 
+2 data sets, combined in the file 'boxodes1.dat'.
+ 
+s0:  given in the namelist 'modelpar'
+     Note: only given for the 1.batch, copied for the 2.batch
+     as default
+t0:  default value 0 used, could be given in 'filepar' namelist
+ 
+ &project
+  projectname = 'boxo'
+ /
+ 
+ 
+ &files
+ nsets = 2
+ datafile(1) = 'boxodes1.dat',
+ resultfile  = 'boxodes1.est'
+ ndumpp      = 80
+ dumpfile    = 'boxodes1.bin'
+ /
+ 
+ &problem
+ task  = 'est'
+ model = 'ode'
+ odesolver = 'odessa'
+ optimizer = 'simlev'
+ objfun = 'lsq'
+ /
+ 
+ &modelpar
+ nstates = 2
+ nsaux   = 3
+ 
+ modelvar = 'k1mean   global   1.0
+             E1       global   0.01
+             k2mean   global   1.0
+             E2       global   0.01
+             Tmean    global   300.
+             case     globali   2.
+             Temp     local    283.   313.;
+             time     Odevar   0 file;
+             s0(1:2)  initval  1.0;
+                               0.0; '
+ 
+  target  = 'k1mean       0.01  100.
+             E1           0.00001  1.0
+             k2mean       0.01  100.
+             E2           0.00001  1.0'
+ 
+ dstep = 1e-6
+ /
+ 
+ &filepar
+ combined = 1
+ 
+ nobs(1)   = 9
+ ncolxy(1) = 3
+ nydata(1) = 2
+ indx(1,1) = 1
+ indy(1,1) = 2
+ indy(2,1) = 3
+ /
+ 
+ &print
+ echo = 0
+ echodata = 0
+ optmonit = 0
+ stats = 1
+ debug = 0
+ jacout = 1
+ /
+ 
+ &design
+ /
+ 
+ &simflex
+ abstols = 1.00E-08
+ reltols = 1.00E-08
+ sizes = .1
+ itmaxs = 3
+ /
+ 
+ &levmar
+ /
+ 
+ 
+ &newton
+ /
+ 
+ 
+ &odessa
+ /
+ 
+ &euler
+ stpeul = 1e-3
+ /
+ 

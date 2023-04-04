@@ -1,0 +1,3 @@
+[submodule "mcmcf90"]
+	path = mcmcf90
+	url = https://github.com/mjlaine/mcmcf90

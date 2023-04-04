@@ -1,0 +1,9 @@
+*.zip
+*~
+*.o
+*.a
+*.mod
+*.MOD
+*.bak
+CVS
+.cvsignore

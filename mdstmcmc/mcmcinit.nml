@@ -1,0 +1,35 @@
+!
+! mcmcinit.nml -- initialization for modest mcmc
+!
+&mcmc
+ method      = 'dram'  ! dram or scam (exprimental)
+ nsimu       = 10000   ! length of the chain
+ doburnin    = 0       ! do we have 'burn-in'
+ burnintime  = 1000    ! burn-in time
+ scalelimit  = 0.05    ! when to scale
+ scalefactor = 2.5     ! scale factor
+ drscale     = 0.0     ! DR scale (0=no DR step)
+ greedy      = 1       ! "greedy" burn in adaptation 
+ badaptint   = -1      ! burn-in adaptation interval, if < 0 use adaptint
+ doadapt     = 1       ! do we adapt
+ adaptint    = 1000    ! interval for adaptation
+ adapthist   = 0       ! adaptation history size (AP type adaptation)
+ adaptend    = 0       ! end adaptation at this time (if >0)
+ initcmatn   = 0       ! "imaginary chain size" for initial proposal cmat 
+ condmax     = 0       ! reqularize cond(cov(chain)) (use svd)
+ condmaxini  = 1.0d15  ! reqularize initial modest J'J
+ sstype      = 1       ! 1 = Gaussian, 2 = lognormal, 3 = Poisson
+ sstrans     = 1.0     ! ss is  (y**sstrans-f**sstrans)**2, if sstype = 1
+ printint    = 1000    ! interval to print statistics
+ verbosity   = 1       ! how much to print on screen
+ filepars    = 1       ! read initial values from files instead of modest
+ usrfunlen   = 0       ! length of usrfun, 0 means no usrfun call
+ updatesigma = 0       ! update error variance
+ N0          = 1       ! prior for error variance,
+ S02         = 0       !    1/s^2 ~ Gamma(N0/2,2/N/S02), or fixed sigma2
+ priorsfile  = ''      ! file from which prior parameters are read
+ chainfile   = 'chain.mat'    ! file to save the chain
+ s2file      = 's2chain.mat'  ! file to save sigma2 chain
+ ssfile      = 'sschain.mat'  ! file to save sum-of-squares chain
+/
+

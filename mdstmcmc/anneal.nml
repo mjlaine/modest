@@ -1,0 +1,10 @@
+!!!
+!!! anneal.nml
+!!!
+&anneal
+ nanneal     = 10000  ! length of the xchain
+ T           = 0.0    ! Temperature (0.0 = use initial target)
+ rscale      = 2.0    ! proposal std in (xub-xlb)/rscale
+ borderstyle = 1      ! if 0 reject outbound proposals, else push to border
+ xchainfile  = 'anneal.mat' ! MAT file to use for xchain
+/

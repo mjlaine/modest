@@ -1,0 +1,105 @@
+###                                               -*- mode: makefile; -*-
+### modest mcmc Makefile template
+###
+
+# name of the project and exe-file
+PROJECT=boxo
+# fortran source files (.f or .for)
+SRC=$(PROJECT)m.f $(PROJECT)o.f $(PROJECT)i.f
+# some linkers dont link MAIN from modest library
+SRC+=modmain.F
+# inc file
+INC=$(PROJECT).inc
+# nml to use in 'make run'
+NMLIO=nmlio
+NML=$(PROJECT).nml
+
+system=win32 # default system
+
+uname := $(shell uname)
+arch  := $(shell arch)
+
+ifeq ($(uname),Linux)
+  system=linux
+endif
+ifeq ($(uname),Darwin)
+  system=mac
+  ifeq ($(arch),i386)
+    system=maci
+  endif
+endif
+
+## compiler settigs for gfortran on Win32
+ifeq ($(system),win32)
+FC = gfortran
+FFLAGS = -O3 -ftree-vectorize
+LIBS=-L C:/lib/ -lmodest -lodepack -lmdstmcmc -llapack -lblas
+endif
+
+## compiler settings for Intel fortran compiler with mkl lapack
+ifeq ($(system),linux)
+FC = ifort
+FFLAGS = -O3 -tpp7 -xW -ipo -w95 -132 -Vaxlib -i_dynamic -Bdynamic
+# more optimization
+FFLAGS = -parallel -O3 -ssp -ipo -funroll-loops -w95 -cm -132 -Vaxlib -i_dynamic -Bdynamic 
+LIBS = -lmodest -lodepackI -lmdstmcmc \
+       -L/opt/intel/mkl70/lib/32 -lmkl_lapack -lmkl_p4 -lguide -lpthread
+endif
+
+## compiler settigs for gfortran on Linux
+ifeq ($(system),linux_gfortran)
+FC = gfortran
+FFLAGS = -O3 -ftree-vectorize -frecord-marker=4 
+LIBS=-lmodest -lodepack -lmdstmcmc -lmcmcrun -llapack -lblas
+endif
+
+ifeq ($(system),mac)
+## compiler settigs for gfortran on G4 MAC
+FC = gfortran
+# debug
+FFLAGS = -g -fbounds-check -frecord-marker=4 -fconvert=little-endian
+FFLAGS = -mtune=G4 -mcpu=G4 -O3 -maltivec -ftree-vectorize \
+   -frecord-marker=4 -fconvert=little-endian
+LIBS=-lmodest -lodepack -lmdstmcmc -faltivec -framework Accelerate
+endif
+
+ifeq ($(system),maci)
+## compiler settigs for gfortran on Intel MAC
+FC = gfortran
+FFLAGS = -O3 -ftree-vectorize -march=pentium-m -mtune=prescott \
+  -frecord-marker=4 -fconvert=little-endian -fexternal-blas
+LIBS=-lmodest -lodepack32 -lmdstmcmc -lmcmcrun -framework Accelerate
+endif
+
+
+# compile the project
+$(PROJECT): $(SRC) $(INC)
+	$(FC) $(FFLAGS) -o $(PROJECT) $(SRC) $(LIBS)
+
+.SUFFIXES: .f .for .o .inc .nml
+
+.f.o:
+	$(FC) $(FFLAGS) -c $<
+.for.o:
+	$(FC) $(FFLAGS) -c $<
+
+.nml.inc:
+	$(NMLIO) $<
+
+# run the project
+run: $(PROJECT) $(NML) mcmcinit.nml
+	$(NMLIO) $(NML)
+	./$(PROJECT)
+
+clean:
+	rm -f *~ *.o core
+
+realclean:
+	rm -f *~ *.o *.obj *.bak *.tmp core $(PROJECT) modtemp.in \
+              *.arg *.est *.sta *.dmp mod.end mcmcnml.txt
+
+realrealclean:
+	rm -f *~ *.o *.obj *.bak *.tmp core $(PROJECT) modtemp.in \
+              *.arg *.est *.sta *.dmp *.eva  mod.end mcmcnml.txt \
+              chain.mat sschain.mat s2chain.mat chain.dat sschain.dat s2chain.dat \
+              mcmc*0.dat mcmcparf.dat mcmccovf.dat mcmcmean.dat
