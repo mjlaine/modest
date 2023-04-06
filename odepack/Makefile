@@ -6,10 +6,17 @@ LIB=odepack
 #FC=g77
 #FFLAGS= -O
 
+DEBUG := no
+
 FC=gfortran
 # MACI
 FFLAGS= -O3 -mtune=native \
  -ftree-vectorize -fomit-frame-pointer -fexternal-blas
+
+ifeq ($(DEBUG),yes)
+FFLAGS+= -g
+endif
+
 
 # MACI64 if used from Matlab which has 64 bit integers in BLAS
 #FFLAGS= -O3 -mtune=native -fdefault-integer-8 \

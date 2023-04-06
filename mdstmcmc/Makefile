@@ -41,7 +41,8 @@ ifeq ($(sys),aix)
 endif
 
 # produce debug code?
-debug=no
+DEBUG := no
+debug=${DEBUG}
 # debug=yes
 
 ### no user modification below this, but check linux.mk or win32.mk ###

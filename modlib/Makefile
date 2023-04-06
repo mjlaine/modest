@@ -9,7 +9,8 @@ fcompiler=gfortran
 include_blas=no
 use_mcmc=yes
 use_lsode=yes
-debug=no
+DEBUG := no
+debug=${DEBUG}
 
 ifeq ($(uname),Linux)
  fcompiler=gfortran
