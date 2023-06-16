@@ -22,6 +22,11 @@ nmlio:
 odepack:
 	$(MAKE) -C odepack
 
+lapack:
+	cp make.inc.example make.inc
+	$(MAKE) -C SRC double
+
+
 mcmcf90:
 	if [ ! -d "mcmcf90" ]; then unzip mcmcf90.zip; fi	
 	$(MAKE) -C mcmcf90
