@@ -1,7 +1,7 @@
 ## Main Makefile for Modest/MCMC
 ## Makes modest, odepack, and mcmc libraries and nmlio executable
 
-SUBDIRS=modlib nmlio odepack mcmcf90 mdstmcmc
+SUBDIRS=modlib nmlio odepack mcmcf90 mdstmcmc lapack
 ISUBDIRS=modlib nmlio
 
 all: $(SUBDIRS)
@@ -23,9 +23,9 @@ odepack:
 	$(MAKE) -C odepack
 
 lapack:
-	cp make.inc.example make.inc
-	$(MAKE) -C SRC double
-
+	cp lapack/make.inc.example lapack/make.inc
+	$(MAKE) -C lapack/SRC double
+	$(MAKE) -C lapack/BLAS
 
 mcmcf90:
 	if [ ! -d "mcmcf90" ]; then unzip mcmcf90.zip; fi	
@@ -40,12 +40,16 @@ modest: all
 	cp mdstmcmc/libmdstmcmc.a combine/
 	cp mcmcf90/libmcmcrun.a combine/
 	cp odepack/libodepack.a combine/
+	cp lapack/liblapack.a combine/
+	cp lapack/librefblas.a combine/
 	ar d combine/libmcmcrun.a ssfunction0.o checkbounds0.o initialize.o dump.o
 	ar d combine/libodepack.a dgesl.o dgefa.o
 	(cd combine \
           && ar x libmcmcrun.a \
           && ar x libmdstmcmc.a \
 	  && ar x libodepack.a \
+	  && ar x liblapack.a \
+	  && ar x librefblas.a \
 	  && ar -ruv libmodest.a *.o)
 	cp combine/libmodest.a .
 	rm -rf combine
