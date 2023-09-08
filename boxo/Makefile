@@ -17,7 +17,8 @@ NML=$(PROJECT).nml
 ## compiler settings for gfortran on Linux
 FC=gfortran
 FFLAGS=-O3
-LIBS=-L/usr/local/lib -lmodest -llapack -lblas
+# LIBS=-L/usr/local/lib -lmodest -llapack -lblas
+LIBS=-L/usr/local/lib -lmodest
 
 # compile the project
 $(PROJECT): $(SRC) $(INC)
