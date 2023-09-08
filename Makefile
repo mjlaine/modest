@@ -28,8 +28,8 @@ lapack:
 	$(MAKE) -C lapack/BLAS
 
 mcmcf90:
-	if [ ! -d "mcmcf90" ]; then unzip mcmcf90.zip; fi	
 	$(MAKE) -C mcmcf90
+# 	if [ ! -d "mcmcf90" ]; then unzip mcmcf90.zip; fi
 
 mdstmcmc:
 	$(MAKE) -C mdstmcmc
@@ -53,6 +53,14 @@ modest: all
 	  && ar -ruv libmodest.a *.o)
 	cp combine/libmodest.a .
 	rm -rf combine
+
+
+modest2: all
+	ar d mcmcf90/libmcmcrun.a ssfunction0.o checkbounds0.o initialize.o dump.o
+	ar d odepack/libodepack.a dgesl.o dgefa.o
+	ar -crs modlib/libmodest.a mdstmcmc/libmdstmcmc.a \
+		mcmcf90/libmcmcrun.a  odepack/libodepack.a \
+		lapack/liblapack.a lapack/librefblas.a
 
 
 install: install2 modest
