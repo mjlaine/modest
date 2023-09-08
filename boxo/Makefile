@@ -41,10 +41,7 @@ clean:
 
 realclean:
 	rm -f *~ *.o *.obj *.bak *.tmp core $(PROJECT)$(EXE) modtemp.in \
-              *.arg *.est *.sta *.dmp *.eva mod.end mcmcnml.txt
-
-realrealclean:
-	rm -f *~ *.o *.obj *.bak *.tmp core $(PROJECT)$(EXE) modtemp.in \
-              *.arg *.est *.sta *.dmp *.eva mod.end mcmcnml.txt \
+              *.bi´n *.arg *.est *.sta *.dmp *.eva mod.end mcmcnml.txt \
+              gfortran_seed.dat boxodes1.bin \
               chain.mat sschain.mat s2chain.mat chain.dat sschain.dat s2chain.dat \
               mcmc*0.dat mcmccovf.dat mcmcparf.dat mcmcsigma2f.dat mcmcmean.dat
