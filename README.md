@@ -24,7 +24,7 @@ This version compiles one main modest library that also contains reference imple
 
 You need a linux machine or similar and `gfortran` compiler to build the modest library.
 
-Installing modest libray (`libmodest.a`) and `nmlio` executable:
+Installing modest library (`libmodest.a`) and `nmlio` executable:
 ```
 git clone --recurse-submodules http://github.com/mjlaine/modest
 cd modest
