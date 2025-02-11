@@ -38,7 +38,7 @@ cd boxo
 make run
 ```
 
-### Some details
+#### Some details
 
 Each folder has a separate `Makefile` for building the code. The [`Makefile`](Makefile) in the main folder builds all libraries. Command `make install` builds everything and copies `libmodest.a` to `/usr/local/lib` and `nmlio` to `/usr/local/bin`.
 
@@ -47,14 +47,14 @@ Each folder has a separate `Makefile` for building the code. The [`Makefile`](Ma
 
 You need to have `git`, `gfortran` and other build tools installed in Windows.
 
-### Install git
+#### Install git
 
 In PowerShell use command:
 ```
 winget install --id Git.Git -e --source winget
 ```
 
-### Install gfortran
+#### Install gfortran
 
 Not testesd, some options below.
 
@@ -62,9 +62,9 @@ https://www.msys2.org/
 
 https://cran.r-project.org/bin/windows/Rtools/rtools40.html
 
-### Install Modest
+#### Install Modest
 
-Followt instructions for Linux
+Follow the instructions for Linux.
 
 ## Installing in Windows with Linux on Windows (WSL)
 
