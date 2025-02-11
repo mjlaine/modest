@@ -43,7 +43,7 @@ make run
 Each folder has a separate `Makefile` for building the code. The [`Makefile`](Makefile) in the main folder builds all libraries. Command `make install` builds everything and copies `libmodest.a` to `/usr/local/lib` and `nmlio` to `/usr/local/bin`.
 
 
-## Using Windows
+## Installing in Windows
 
 You need to have `git`, `gfortran` and other build tools installed in Windows.
 
@@ -66,14 +66,14 @@ https://cran.r-project.org/bin/windows/Rtools/rtools40.html
 
 Followt instructions for Linux
 
-## Using Windows with Linux on Windows (WSL)
+## Installing in Windows with Linux on Windows (WSL)
 
  - install Windows Terminal https://aka.ms/terminal or `winget install --id Microsoft.WindowsTerminal -e`.
  - install WSL `wsl --install`, reboot.
  - Inside WSL: `sudo apt update && sudo apt install gfortran make`
  - Inside WSL install Modest as in Linux.
 
-## Using a docker container
+## Installing using docker container
 
 The provided [`Dockerfile`](Dockerfile) can be used to build a docker container that compiles the modest library and can be used to run modest programs.
 
