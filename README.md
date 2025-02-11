@@ -13,9 +13,10 @@ Folders in this repository:
 | lapack   | copy of reference lapack    |
 | odepack  | odepack library from netlib |
 | boxo     | modest test model           |
+| doc      | Old documentation           |
 
 
-Folder `mcmcf90` is a copy from [https://github.com/mjlaine/mcmcf90]. The `odepack` library is a copy from https://netlib.org/odepack with added `Makefile`, modified directory structure, as well as some auxiliary error handling files.
+Folder `mcmcf90` is a copy from [https://github.com/mjlaine/mcmcf90]. The `odepack` library is a copy from https://netlib.org/odepack with added `Makefile`, modified directory structure, as well as some auxiliary error handling files. There are some old instructions in folder [`doc`](doc).
 
 This version compiles one main modest library that also contains reference implementation of LAPACK and BLAS from  [Reference LAPACK](https://github.com/Reference-LAPACK/lapack). 
 
