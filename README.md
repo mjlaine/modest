@@ -20,7 +20,7 @@ Folder `mcmcf90` is a copy from [https://github.com/mjlaine/mcmcf90]. The `odepa
 This version compiles one main modest library that also contains reference implementation of LAPACK and BLAS from  [Reference LAPACK](https://github.com/Reference-LAPACK/lapack). 
 
 
-## Building the modest library
+## Building the modest library in Linux
 
 You need a linux machine or similar and `gfortran` compiler to build the modest library.
 
@@ -37,10 +37,18 @@ Everything in one session:
 ```
 git clone --recurse-submodules http://github.com/mjlaine/modest
 cd modest
-make install
+make
+sudo make install
 cd boxo
 make run
 ```
+
+## Using Windows with Linux on Windows (WSL)
+
+ - install Windows Terminal https://aka.ms/terminal or `winget install --id Microsoft.WindowsTerminal -e`.
+ - install WSL `wsl --install`, reboot.
+ - Inside WSL: `sudo apt update &&  sudo apt install gfortran make`
+ - Inside WSL install Modest as in Linux.
 
 ## Using a docker container
 
@@ -51,7 +59,7 @@ Building modest container:
 docker build --rm -t modest .
 ```
 
-Or directly from github (no nothing needs to be downloaded before):
+Or directly from github (nothing needs to be downloaded before):
 ```
 docker build --rm -t modest https://github.com/mjlaine/modest.git
 ```
@@ -80,6 +88,26 @@ wget http://github.com/mjlaine/modest/blob/master/Dockerfile
 docker build --rm -t modest .
 ...
 ```
+
+## Windows
+
+You need to have `git`, `gfortran` and other build tools installed in Windows.
+
+### Install git
+
+In PowerShell use command:
+```
+winget install --id Git.Git -e --source winget
+```
+
+### Install gfortran
+
+Not testesd, some options below.
+
+https://www.msys2.org/
+
+https://cran.r-project.org/bin/windows/Rtools/rtools40.html
+
 
 ---
 marko.laine@fmi.fi
