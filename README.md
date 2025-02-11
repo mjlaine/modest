@@ -24,30 +24,53 @@ This version compiles one main modest library that also contains reference imple
 
 You need a linux machine or similar and `gfortran` compiler to build the modest library.
 
-Each folder has a separate `Makefile` for building the code. The [`Makefile`](Makefile) in the main folder builds all libraries. Command `make install` builds everything and copies `libmodest.a` to `/usr/local/lib`.
-
-Folder [`boxo`](boxo) can be used for testing:
-```
-cd boxo
-make
-make run
-```
-
-Everything in one session:
+Installing modest libray (`libmodest.a`) and `nmlio` executable:
 ```
 git clone --recurse-submodules http://github.com/mjlaine/modest
 cd modest
 make
 sudo make install
+```
+
+Testing with the "boxo" example in folder [`boxo`](boxo):
+```
 cd boxo
 make run
 ```
+
+### Some details
+
+Each folder has a separate `Makefile` for building the code. The [`Makefile`](Makefile) in the main folder builds all libraries. Command `make install` builds everything and copies `libmodest.a` to `/usr/local/lib` and `nmlio` to `/usr/local/bin`.
+
+
+## Using Windows
+
+You need to have `git`, `gfortran` and other build tools installed in Windows.
+
+### Install git
+
+In PowerShell use command:
+```
+winget install --id Git.Git -e --source winget
+```
+
+### Install gfortran
+
+Not testesd, some options below.
+
+https://www.msys2.org/
+
+https://cran.r-project.org/bin/windows/Rtools/rtools40.html
+
+### Install Modest
+
+Followt instructions for Linux
 
 ## Using Windows with Linux on Windows (WSL)
 
  - install Windows Terminal https://aka.ms/terminal or `winget install --id Microsoft.WindowsTerminal -e`.
  - install WSL `wsl --install`, reboot.
- - Inside WSL: `sudo apt update &&  sudo apt install gfortran make`
+ - Inside WSL: `sudo apt update && sudo apt install gfortran make`
  - Inside WSL install Modest as in Linux.
 
 ## Using a docker container
@@ -89,24 +112,6 @@ docker build --rm -t modest .
 ...
 ```
 
-## Windows
-
-You need to have `git`, `gfortran` and other build tools installed in Windows.
-
-### Install git
-
-In PowerShell use command:
-```
-winget install --id Git.Git -e --source winget
-```
-
-### Install gfortran
-
-Not testesd, some options below.
-
-https://www.msys2.org/
-
-https://cran.r-project.org/bin/windows/Rtools/rtools40.html
 
 
 ---
