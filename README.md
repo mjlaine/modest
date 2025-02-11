@@ -23,7 +23,7 @@ This version compiles one main modest library that also contains reference imple
 
 ## Building the modest library in Linux
 
-You need a linux machine or similar and `gfortran` compiler to build the modest library.
+You need a linux machine and `gfortran` compiler to build the modest library.
 
 Installing modest library (`libmodest.a`) and `nmlio` executable:
 ```
@@ -46,7 +46,7 @@ Each folder has a separate `Makefile` for building the code. The [`Makefile`](Ma
 
 ## Installing in Windows
 
-You need to have `git`, `gfortran` and other build tools installed in Windows.
+If have `git`, `gfortran`, `make` and other build tools already installed in Windows, follow the instructions for Linux. Below are some ideas on installing the needed build tools in Windows, if they are missing.
 
 #### Install git
 
