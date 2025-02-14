@@ -46,7 +46,7 @@ Each folder has a separate `Makefile` for building the code. The [`Makefile`](Ma
 
 ## Installing in Windows
 
-If have `git`, `gfortran`, `make` and other build tools already installed in Windows, follow the instructions for Linux. Below are some ideas on installing the needed build tools in Windows, if they are missing.
+If have `git`, `gfortran`, `make` and other build tools already installed in Windows, follow the instructions for Linux. Below are some ideas on installing the needed build tools in Windows, if they are missing. This will probably not work, so you would better use Linux (or WSL, see below).
 
 #### Install git
 
@@ -55,12 +55,20 @@ In PowerShell use command:
 winget install --id Git.Git -e --source winget
 ```
 
-#### Install gfortran
+#### Install gfortran and other build tools
 
-Not testesd, some options below.
+Not tested, some options below.
 
 https://www.msys2.org/
+After installin msys2, you probably need something similar to:
+```
+pacman -S mingw-w64-ucrt-x86_64-gcc
+pacman -S mingw-w64-ucrt-x86_64-gcc-fortran
+pacman -S make
+pacman -S git
+```
 
+Alternative to MSYS2 is
 https://cran.r-project.org/bin/windows/Rtools/rtools40.html
 
 #### Install Modest
