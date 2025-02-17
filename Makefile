@@ -19,7 +19,7 @@ ifneq ($(POSIXSHELL),)
     MKDIR = mkdir -p
     RM = rm
     RMDIR = rm -rf
-    CMDSEP = ;
+    CMDSEP = &&
     PSEP = /
 else
     COPY = copy /y
@@ -71,12 +71,12 @@ modest: all
 	ar d combine/libmcmcrun.a ssfunction0.o checkbounds0.o initialize.o dump.o
 	ar d combine/libodepack.a dgesl.o dgefa.o
 	(cd combine \
-          && ar x libmcmcrun.a \
-          && ar x libmdstmcmc.a \
-	  && ar x libodepack.a \
-	  && ar x liblapack.a \
-	  && ar x librefblas.a \
-	  && ar -ruv libmodest.a *.o)
+          $(CMDSEP) ar x libmcmcrun.a \
+          $(CMDSEP) ar x libmdstmcmc.a \
+	  $(CMDSEP) ar x libodepack.a \
+	  $(CMDSEP) ar x liblapack.a \
+	  $(CMDSEP) ar x librefblas.a \
+	  $(CMDSEP) ar -ruv libmodest.a *.o)
 	$(COPY) combine/libmodest.a .
 	$(RMDIR) combine
 
@@ -98,13 +98,13 @@ modestwin: all
 	$(COPY) lapack$(PSEP)librefblas.a combine$(PSEP)
 	ar d combine$(PSEP)libmcmcrun.a ssfunction0.o checkbounds0.o initialize.o dump.o
 	ar d combine$(PSEP)libodepack.a dgesl.o dgefa.o
-	(cd combine \
-          && ar x libmcmcrun.a \
-          && ar x libmdstmcmc.a \
-	  && ar x libodepack.a \
-	  && ar x liblapack.a \
-	  && ar x librefblas.a \
-	  && ar -ruv libmodest.a *.o)
+	cd combine \
+          $(CMDSEP) ar x libmcmcrun.a \
+          $(CMDSEP) ar x libmdstmcmc.a \
+	  $(CMDSEP) ar x libodepack.a \
+	  $(CMDSEP) ar x liblapack.a \
+	  $(CMDSEP) ar x librefblas.a \
+	  $(CMDSEP) ar -ruv libmodest.a *.o
 	$(COPY) combine$(PSEP)libmodest.a .
 	$(RMDIR) combine
 
