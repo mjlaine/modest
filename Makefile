@@ -96,16 +96,15 @@ modestwin: all
 	$(COPY) odepack$(PSEP)libodepack.a combine$(PSEP)
 	$(COPY) lapack$(PSEP)liblapack.a combine$(PSEP)
 	$(COPY) lapack$(PSEP)librefblas.a combine$(PSEP)
-	cd combine
-	ar d libmcmcrun.a ssfunction0.o checkbounds0.o initialize.o dump.o
-	ar d libodepack.a dgesl.o dgefa.o
-	ar x libmcmcrun.a
-	ar x libmdstmcmc.a
-	ar x libodepack.a
-	ar x liblapack.a
-	ar x librefblas.a
-	ar -ruv libmodest.a *.o
-	cd ..
+	ar d combine$(PSEP)libmcmcrun.a ssfunction0.o checkbounds0.o initialize.o dump.o
+	ar d combine$(PSEP)libodepack.a dgesl.o dgefa.o
+	(cd combine \
+          && ar x libmcmcrun.a \
+          && ar x libmdstmcmc.a \
+	  && ar x libodepack.a \
+	  && ar x liblapack.a \
+	  && ar x librefblas.a \
+	  && ar -ruv libmodest.a *.o)
 	$(COPY) combine$(PSEP)libmodest.a .
 	$(RMDIR) combine
 
