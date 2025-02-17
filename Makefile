@@ -6,11 +6,28 @@ ISUBDIRS=modlib nmlio
 
 
 ifeq ($(OS),Windows_NT)
-    COPY = copy
-    RM = del
+   ifneq ($(strip $(filter %sh,$(basename $(realpath $(SHELL))))),)
+      POSIXSHELL = 1
+   else
+      POSIXSHELL =
+   endif
 else
-    COPY = cp
+   POSIXSHELL = 1
+endif
+ifneq ($(POSIXSHELL),)
+    COPY = cp -f
+    MKDIR = mkdir -p
     RM = rm
+    RMDIR = rm -rf
+    CMDSEP = ;
+    PSEP = /
+else
+    COPY = copy /y
+    MKDIR = mkdir
+    RM = del
+    RMDIR = rmdir /s /q
+    CMDSEP = &
+    PSEP = \\
 endif
 
 all: $(SUBDIRS)
@@ -44,7 +61,7 @@ mdstmcmc:
 	$(MAKE) -C mdstmcmc
 
 modest: all
-	mkdir -p combine
+	$(MKDIR) combine
 	$(COPY) modlib/libmodest.a combine/
 	$(COPY) mdstmcmc/libmdstmcmc.a combine/
 	$(COPY) mcmcf90/libmcmcrun.a combine/
@@ -61,7 +78,7 @@ modest: all
 	  && ar x librefblas.a \
 	  && ar -ruv libmodest.a *.o)
 	$(COPY) combine/libmodest.a .
-	$(RM) -rf combine
+	$(RMDIR) combine
 
 
 modest2: all
@@ -70,6 +87,27 @@ modest2: all
 	ar -crs modlib/libmodest.a mdstmcmc/libmdstmcmc.a \
 		mcmcf90/libmcmcrun.a  odepack/libodepack.a \
 		lapack/liblapack.a lapack/librefblas.a
+
+modestwin: all
+	$(MKDIR) combine
+	$(COPY) modlib$(PSEP)libmodest.a combine$(PSEP)
+	$(COPY) mdstmcmc$(PSEP)libmdstmcmc.a combine$(PSEP)
+	$(COPY) mcmcf90$(PSEP)libmcmcrun.a combine$(PSEP)
+	$(COPY) odepack$(PSEP)libodepack.a combine$(PSEP)
+	$(COPY) lapack$(PSEP)liblapack.a combine$(PSEP)
+	$(COPY) lapack$(PSEP)librefblas.a combine$(PSEP)
+	cd combine
+	ar d libmcmcrun.a ssfunction0.o checkbounds0.o initialize.o dump.o
+	ar d libodepack.a dgesl.o dgefa.o
+        ar x libmcmcrun.a
+        ar x libmdstmcmc.a
+	ar x libodepack.a
+	ar x liblapack.a
+	ar x librefblas.a
+	ar -ruv libmodest.a *.o
+	cd ..
+	$(COPY) combine$(PSEP)libmodest.a .
+	$(RMDIR) combine
 
 
 install: install2 modest
