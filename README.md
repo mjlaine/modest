@@ -13,12 +13,12 @@ Folders in this repository:
 | lapack   | copy of reference lapack    |
 | odepack  | odepack library from netlib |
 | boxo     | modest test model           |
-| doc      | Old documentation           |
+| doc      | old documentation           |
 
 
-Folder `mcmcf90` is a copy from [https://github.com/mjlaine/mcmcf90]. The `odepack` library is a copy from https://netlib.org/odepack with added `Makefile`, modified directory structure, as well as some auxiliary error handling files. There are some old instructions in folder [`doc`](doc).
+Folder `mcmcf90` is a copy from [https://github.com/mjlaine/mcmcf90]. The `odepack` library is a copy from https://netlib.org/odepack with added `Makefile`, modified directory structure, as well as some auxiliary error handling files. There are some old instructions in the folder [`doc`](doc).
 
-This version compiles one main modest library that also contains reference implementation of LAPACK and BLAS from  [Reference LAPACK](https://github.com/Reference-LAPACK/lapack). 
+This version creates one main modest library `libmodest.a` that also contains reference implementation of LAPACK and BLAS from  [Reference LAPACK](https://github.com/Reference-LAPACK/lapack). 
 
 
 ## Building the modest library in Linux
@@ -41,7 +41,7 @@ make run
 
 #### Some details
 
-Each folder has a separate `Makefile` for building the code. The [`Makefile`](Makefile) in the main folder builds all libraries. Command `make install` builds everything and copies `libmodest.a` to `/usr/local/lib` and `nmlio` to `/usr/local/bin`.
+Each folder has a separate `Makefile` for building the code. The [`Makefile`](Makefile) in the main folder builds all libraries and makes a combined `libmodest.a` in the main folder.  Command `make install` builds everything and copies `libmodest.a` to `/usr/local/lib` and `nmlio` to `/usr/local/bin`.
 
 
 ## Installing in Windows
@@ -68,7 +68,7 @@ pacman -S make
 pacman -S git
 ```
 
-Alternative to MSYS2 is
+Alternative way to use MSYS2 is given here:
 https://cran.r-project.org/bin/windows/Rtools/rtools40.html
 
 #### Install Modest
@@ -78,9 +78,9 @@ Follow the instructions for Linux.
 ## Installing in Windows with Linux on Windows (WSL)
 
  - install Windows Terminal https://aka.ms/terminal or `winget install --id Microsoft.WindowsTerminal -e`.
- - install WSL `wsl --install`, reboot.
- - Inside WSL: `sudo apt update && sudo apt install gfortran make`
- - Inside WSL install Modest as in Linux.
+ - install WSL `wsl --install` (needs administrator rights), reboot.
+ - Inside Ubuntu WSL: `sudo apt update && sudo apt install gfortran make`
+ - Inside Ubuntu WSL install Modest as in Linux.
 
 ## Installing using docker container
 
