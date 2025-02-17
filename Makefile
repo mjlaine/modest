@@ -99,8 +99,8 @@ modestwin: all
 	cd combine
 	ar d libmcmcrun.a ssfunction0.o checkbounds0.o initialize.o dump.o
 	ar d libodepack.a dgesl.o dgefa.o
-        ar x libmcmcrun.a
-        ar x libmdstmcmc.a
+	ar x libmcmcrun.a
+	ar x libmdstmcmc.a
 	ar x libodepack.a
 	ar x liblapack.a
 	ar x librefblas.a
