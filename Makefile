@@ -30,7 +30,8 @@ else
     PSEP = \\
 endif
 
-all: $(SUBDIRS)
+#all: $(SUBDIRS)
+all: modest
 
 .PHONY: $(SUBDIRS)
 
@@ -60,7 +61,7 @@ mcmcf90:
 mdstmcmc:
 	$(MAKE) -C mdstmcmc
 
-modest: all
+modest1: all
 	$(MKDIR) combine
 	$(COPY) modlib/libmodest.a combine/
 	$(COPY) mdstmcmc/libmdstmcmc.a combine/
@@ -88,7 +89,7 @@ modest2: all
 		mcmcf90/libmcmcrun.a  odepack/libodepack.a \
 		lapack/liblapack.a lapack/librefblas.a
 
-modestwin: all
+modest: $(SUBDIRS)
 	$(MKDIR) combine
 	$(COPY) modlib$(PSEP)libmodest.a combine$(PSEP)
 	$(COPY) mdstmcmc$(PSEP)libmdstmcmc.a combine$(PSEP)
