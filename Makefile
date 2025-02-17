@@ -110,10 +110,10 @@ modest: $(SUBDIRS)
 	$(RMDIR) combine
 
 
-install: install2 modest
+install: modest install2
 	install -p -m644 libmodest.a /usr/local/lib
 
-install2: all
+install2: $(SUBDIRS)
 	@for i in $(ISUBDIRS); do (cd $$i; $(MAKE) install); done
 
 clean:
