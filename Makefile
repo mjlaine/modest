@@ -50,7 +50,7 @@ odepack:
 	$(MAKE) -C odepack
 
 lapack:
-	$(COPY) lapack/make.inc.example lapack/make.inc
+	$(COPY) lapack$(PSEP)make.inc.example lapack$(PSEP)make.inc
 	$(MAKE) -C lapack/SRC double
 	$(MAKE) -C lapack/BLAS
 
