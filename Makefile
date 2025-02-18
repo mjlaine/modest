@@ -51,6 +51,7 @@ odepack:
 
 lapack:
 	$(COPY) lapack$(PSEP)make.inc.example lapack$(PSEP)make.inc
+	$(MAKE) -C lapack/SRC la_xisnan.o
 	$(MAKE) -C lapack/SRC double
 	$(MAKE) -C lapack/BLAS
 
