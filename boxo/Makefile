@@ -11,6 +11,11 @@ INC=$(PROJECT).inc
 NMLIO=nmlio
 NML=$(PROJECT).nml
 
+ifeq ($(OS),Windows_NT)
+  NMLIO=..\\nmlio\\nmlio.exe
+endif
+
+
 # some linkers don't link MAIN from modest library
 #SRC+=modmain.F
 
