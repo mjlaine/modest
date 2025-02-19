@@ -18,7 +18,8 @@ NML=$(PROJECT).nml
 FC=gfortran
 FFLAGS=-O3
 # LIBS=-L/usr/local/lib -lmodest -llapack -lblas
-LIBS=-L/usr/local/lib -lmodest
+# LIBS=-L/usr/local/lib -lmodest
+LIBS=-L.. -lmodest
 
 # compile the project
 $(PROJECT): $(SRC) $(INC)
