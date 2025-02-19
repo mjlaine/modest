@@ -5,6 +5,7 @@ SUBDIRS=modlib nmlio odepack mcmcf90 mdstmcmc lapack
 ISUBDIRS=modlib nmlio
 
 
+# Try to make this work on Windows, too
 ifeq ($(OS),Windows_NT)
    ifneq ($(strip $(filter %sh,$(basename $(realpath $(SHELL))))),)
       POSIXSHELL = 1
@@ -30,10 +31,9 @@ else
     PSEP = \\
 endif
 
-#all: $(SUBDIRS)
 all: modest
 
-.PHONY: $(SUBDIRS)
+.PHONY: $(SUBDIRS) modest
 
 unzip:
 	@for i in $(SUBDIRS); do \
@@ -57,40 +57,22 @@ lapack:
 
 mcmcf90:
 	$(MAKE) -C mcmcf90
-# 	if [ ! -d "mcmcf90" ]; then unzip mcmcf90.zip; fi
 
 mdstmcmc:
 	$(MAKE) -C mdstmcmc
 
-modest1: all
-	$(MKDIR) combine
-	$(COPY) modlib/libmodest.a combine/
-	$(COPY) mdstmcmc/libmdstmcmc.a combine/
-	$(COPY) mcmcf90/libmcmcrun.a combine/
-	$(COPY) odepack/libodepack.a combine/
-	$(COPY) lapack/liblapack.a combine/
-	$(COPY) lapack/librefblas.a combine/
-	ar d combine/libmcmcrun.a ssfunction0.o checkbounds0.o initialize.o dump.o
-	ar d combine/libodepack.a dgesl.o dgefa.o
-	(cd combine \
-          $(CMDSEP) ar x libmcmcrun.a \
-          $(CMDSEP) ar x libmdstmcmc.a \
-	  $(CMDSEP) ar x libodepack.a \
-	  $(CMDSEP) ar x liblapack.a \
-	  $(CMDSEP) ar x librefblas.a \
-	  $(CMDSEP) ar -ruv libmodest.a *.o)
-	$(COPY) combine/libmodest.a .
+
+modest: libmodest.a
+
+OBJ = $(notdir $(wildcard combine/*.o))
+
+libmodest.a: extractobj
+	cd combine \
+          $(CMDSEP) ar -ruv libmodest.a $(OBJ)
+	$(COPY) combine$(PSEP)libmodest.a .
 	$(RMDIR) combine
 
-
-modest2: all
-	ar d mcmcf90/libmcmcrun.a ssfunction0.o checkbounds0.o initialize.o dump.o
-	ar d odepack/libodepack.a dgesl.o dgefa.o
-	ar -crs modlib/libmodest.a mdstmcmc/libmdstmcmc.a \
-		mcmcf90/libmcmcrun.a  odepack/libodepack.a \
-		lapack/liblapack.a lapack/librefblas.a
-
-modest: $(SUBDIRS)
+extractobj: $(SUBDIRS)
 	$(MKDIR) combine
 	$(COPY) modlib$(PSEP)libmodest.a combine$(PSEP)
 	$(COPY) mdstmcmc$(PSEP)libmdstmcmc.a combine$(PSEP)
@@ -105,11 +87,7 @@ modest: $(SUBDIRS)
           $(CMDSEP) ar x libmdstmcmc.a \
 	  $(CMDSEP) ar x libodepack.a \
 	  $(CMDSEP) ar x liblapack.a \
-	  $(CMDSEP) ar x librefblas.a \
-	  $(CMDSEP) ar -ruv libmodest.a *.o
-	$(COPY) combine$(PSEP)libmodest.a .
-	$(RMDIR) combine
-
+	  $(CMDSEP) ar x librefblas.a
 
 install: modest install2
 	install -p -m644 libmodest.a /usr/local/lib
