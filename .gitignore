@@ -8,3 +8,6 @@
 CVS
 .cvsignore
 nmlio/nmlio
+.vscode
+README.html
+README_files
